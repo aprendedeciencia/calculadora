@@ -7,15 +7,38 @@ frame0 = Frame(raiz)
 frame0.pack()
 
 valor = StringVar()
-
-
+operacion = ""
+resultado = 0
+operador=""
 # ---------------Funciones---------------------
 def valorPantalla(num):
+    global operacion
+    global operador
     if num == "0" and valor.get() == "0":
         valor.set("0")
     else:
-        valor.set(valor.get() + num)
+        if valor.get() == "0":
+            valor.set(num)
+        else:
+            if operacion == "suma":
+                valor.set(num)
+                operador = operacion
+                operacion=""
+            else:
+                valor.set(valor.get() + num)
 
+def setAdd():
+    global operacion
+    global resultado
+    resultado+=int(valor.get())
+    operacion="suma"
+    valor.set(str(resultado))
+
+def setEquals():
+    global operador
+
+    if operador == "suma":
+        setAdd()
 
 # ------------------PANTALLA------------------
 pantalla = Entry(frame0, textvariable=valor)
@@ -45,7 +68,7 @@ cinco.grid(row=3, column=1)
 seis = Button(frame0, text="6", width=5, height=5, command=lambda: valorPantalla("6"))
 seis.grid(row=3, column=2)
 
-add = Button(frame0, text="+", width=5, height=5)
+add = Button(frame0, text="+", width=5, height=5,command=lambda: setAdd())
 add.grid(row=3, column=3)
 
 # ------------------Botones 1-2-3-------------------
@@ -68,7 +91,7 @@ cero.grid(row=5, column=0)
 coma = Button(frame0, text=",", width=5, height=5, command=lambda: valorPantalla(","))
 coma.grid(row=5, column=1)
 
-igual = Button(frame0, text="=", width=5, height=5)
+igual = Button(frame0, text="=", width=5, height=5, command=lambda: setEquals())
 igual.grid(row=5, column=2)
 
 div = Button(frame0, text="/", width=5, height=5)
