@@ -24,6 +24,21 @@ def valorPantalla(num):
                 valor.set(num)
                 operador = operacion
                 operacion=""
+            elif operacion == "resta":
+                valor.set(num)
+                operador = operacion
+                operacion = ""
+            elif operacion == "multiplicacion":
+                valor.set(num)
+                operador = operacion
+                operacion = ""
+            elif operacion == "division":
+                valor.set(num)
+                operador = operacion
+                operacion = ""
+            elif operacion == "igual":
+                valor.set(num)
+                operacion = ""
             else:
                 valor.set(valor.get() + num)
 
@@ -36,9 +51,41 @@ def setAdd():
 
 def setEquals():
     global operador
+    global resultado
+    global operacion
 
     if operador == "suma":
-        setAdd()
+        resultado+=int(valor.get())
+        valor.set(str(resultado))
+        resultado = 0
+        operacion = "igual"
+    elif operador == "resta":
+        resultado = resultado - int(valor.get())
+        valor.set(str(resultado))
+        resultado = 0
+        operacion = "igual"
+    elif operador == "multiplicacion":
+        valor.set(str(resultado))
+        resultado = 0
+        operacion = "igual"
+
+def setSustrac():
+    global operacion
+    global resultado
+    if resultado == 0:
+        resultado = int(valor.get())
+    else:
+        resultado = resultado - int(valor.get())
+
+    operacion="resta"
+    valor.set(str(resultado))
+
+def setMult():
+    global operacion
+    global resultado
+    resultado*=int(valor.get())
+    operacion="multiplicacion"
+    valor.set(str(resultado))
 
 # ------------------PANTALLA------------------
 pantalla = Entry(frame0, textvariable=valor)
@@ -55,7 +102,7 @@ ocho.grid(row=2, column=1)
 nueve = Button(frame0, text="9", width=5, height=5, command=lambda: valorPantalla("9"))
 nueve.grid(row=2, column=2)
 
-multi = Button(frame0, text="X", width=5, height=5)
+multi = Button(frame0, text="X", width=5, height=5, command=lambda: setMult())
 multi.grid(row=2, column=3)
 
 # ------------------Botones 4-5-6-+------------------
@@ -68,7 +115,7 @@ cinco.grid(row=3, column=1)
 seis = Button(frame0, text="6", width=5, height=5, command=lambda: valorPantalla("6"))
 seis.grid(row=3, column=2)
 
-add = Button(frame0, text="+", width=5, height=5,command=lambda: setAdd())
+add = Button(frame0, text="+", width=5, height=5, command=lambda: setAdd())
 add.grid(row=3, column=3)
 
 # ------------------Botones 1-2-3-------------------
@@ -81,7 +128,7 @@ dos.grid(row=4, column=1)
 tres = Button(frame0, text="3", width=5, height=5, command=lambda: valorPantalla("3"))
 tres.grid(row=4, column=2)
 
-sust = Button(frame0, text="-", width=5, height=5)
+sust = Button(frame0, text="-", width=5, height=5, command=lambda: setSustrac())
 sust.grid(row=4, column=3)
 
 # ------------------Botones 0-=-,-+------------------
